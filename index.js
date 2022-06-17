@@ -3,14 +3,18 @@ let memoire = document.querySelector('#memoire');
 
 let affiche = "";
 let op = null;
-let act = 0;
 let prec = 0;
+let mem;
 window.onload = () => { 
 let btn = document.querySelectorAll("span");
+
 for(let bt of btn)
 {
     bt.addEventListener('click', operate);
 }}
+
+mem = (localStorage.mem)? parseFloat(localStorage.mem):0;
+if (mem != 0) memoire.style.display="initial"
 function operate()
 {
     let c = this.innerText;
@@ -51,6 +55,23 @@ else
    affiche = prec;
    prec = 0;
    break;     
+   case "M+":
+    localStorage.mem = (localStorage.mem) ? parseFloat(localStorage.mem) + parseFloat(affiche) : parseFloat(affiche);
+    memoire.style.display="initial"
+    break;
+case "MC":
+    
+    localStorage.mem = 0;
+    memoire.style.display = "none";
+    break;
+case "MR":
+    // On récupère la valeur stockée
+    mem = (localStorage.mem) ? parseFloat(localStorage.mem) : 0;
+    affiche = mem;
+    ecran.innerText = mem;
+    break;
+default:
+    break;
 }
 }
 /** 
